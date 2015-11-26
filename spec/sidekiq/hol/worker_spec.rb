@@ -12,7 +12,7 @@ describe Sidekiq::Hol::Worker do
     end
 
     context 'that includes sidekiq and sidekiq-hol' do
-      subject { MyHolWorker }
+      subject { MyHol2Worker }
 
       it { should respond_to :perform_async }
       it { should respond_to :perform_hol_async }
@@ -33,7 +33,7 @@ class MyWorker
   sidekiq_options queue: :some_queue
 end
 
-class MyHolWorker
+class MyHol2Worker
   include Sidekiq::Worker
   include Sidekiq::Hol::Worker
 
