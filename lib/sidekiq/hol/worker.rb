@@ -4,6 +4,7 @@ module Sidekiq
       def self.included(base)
         raise ArgumentError, "You cannot include Sidekiq::Hol::Worker in an ActiveJob: #{base.name}" if base.ancestors.any? {|c| c.name == 'ActiveJob::Base' }
 
+        base.include(Sidekiq::Worker) unless defined? base.perform_async
         base.extend(ClassMethods)
       end
 

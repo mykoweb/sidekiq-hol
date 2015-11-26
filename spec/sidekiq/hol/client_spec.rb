@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'sidekiq/fetch'
 
 describe Sidekiq::Hol::Client do
-  let(:queue_name) { 'yuzu' }
+  let(:queue_name) { 'some_queue' }
   let(:queue)      { Sidekiq::Queue.new queue_name }
   let(:fetcher)    { Sidekiq::BasicFetch.new queues: [queue_name] }
 
@@ -11,6 +11,10 @@ describe Sidekiq::Hol::Client do
   describe 'errors' do
     it 'raises ArgumentError with invalid params' do
       expect { described_class.hol_push('foo', 1) }.to raise_error ArgumentError
+      expect { described_class.hol_push('foo', class: 'Foo', noargs: [1, 2]) }.to raise_error ArgumentError
+      expect { described_class.hol_push('queue' => 'foo', 'class' => MyHolWorker, 'noargs' => [1, 2]) }.to raise_error ArgumentError
+      expect { described_class.hol_push('queue' => 'foo', 'class' => 42, 'args' => [1, 2]) }.to raise_error ArgumentError
+      expect { described_class.hol_push('queue' => 'foo', 'class' => MyHolWorker, 'args' => 1) }.to raise_error ArgumentError
     end
   end
 
@@ -68,8 +72,7 @@ describe Sidekiq::Hol::Client do
 end
 
 class MyHolWorker
-  include Sidekiq::Worker
   include Sidekiq::Hol::Worker
 
-  sidekiq_options queue: :yuzu
+  sidekiq_options queue: :some_queue
 end
