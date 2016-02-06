@@ -34,7 +34,13 @@ end
 Create the asynchronous job:
 
 ```ruby
-SomeWorker.perform_hol_async 'bart', 17
+SomeWorker.perform_hol_async 'maggie', 1
+```
+
+Even though `SomeWorker` includes `Sidekiq::Hol::Worker` you can still use the regular `perform_async` method to submit a job at the end of a queue:
+
+```ruby
+SomeWorker.perform_async 'lisa', 8
 ```
 
 ## Motivation
