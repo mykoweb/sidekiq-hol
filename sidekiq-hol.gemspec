@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = Sidekiq::Hol::VERSION
 
-  gem.add_dependency             'sidekiq'
+  gem.add_dependency             'sidekiq', '~> 4.0.0'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
