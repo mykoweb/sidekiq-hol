@@ -45,7 +45,7 @@ SomeWorker.perform_async 'lisa', 8
 
 ## Motivation
 
-In one of the apps I was working on, some of the Sidekiq jobs were both long-running (they could take several minutes, or hours to complete) and numerous. Thus, if someone had wanted a job to be executed immediately, this might not have been possible since it would have been placed at the end of the queue, and earlier jobs could have taken weeks or months to finish.
+In one of the apps I was working on, some of the Sidekiq jobs were both long-running (they could take several minutes, or hours to complete) and numerous. If someone had wanted a job to be executed immediately, this might not have been possible since it would have been placed at the end of the queue, and earlier jobs could have taken weeks or months to finish.
 
 `sidekiq-hol` solves this problem by allowing a user to submit high-priority jobs at the front of the job queue. Note, if all jobs were to be submitted using `sidekiq-hol` then this would defeat its purpose. Please use it judiciously!
 
